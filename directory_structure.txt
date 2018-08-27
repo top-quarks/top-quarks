@@ -1,0 +1,6 @@
+./logs
+./src
+./submissions
+./trained
+./trained/pair_logreg3
+./trained/tmp
