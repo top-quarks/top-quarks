@@ -1,7 +1,7 @@
 //Contains functions to read the input data, and global variables to hold the data
 
 //Where to find all the data
-const char base_path[] = "/data/kaggle";
+const char base_path[] = "/da235ta/kaggle";
 //const char base_path[] = ".";
 
 //Which event to run, this may be overwritten by main()'s arguments
