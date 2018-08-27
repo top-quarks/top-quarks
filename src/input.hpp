@@ -1,7 +1,7 @@
 //Contains functions to read the input data, and global variables to hold the data
 
 //Where to find all the data
-const char base_path[] = "/da235ta/kaggle";
+const char base_path[] = "/data/kaggle";
 //const char base_path[] = ".";
 
 //Which event to run, this may be overwritten by main()'s arguments
@@ -280,7 +280,10 @@ void readHits() {
   else
     sprintf(file, "%s/test/event%09d-hits.csv", base_path, filenum);
   FILE*fp = fopen(file, "r");
-  if (!fp) printf("couldn't open hits\n");
+  if (!fp) {
+    printf("couldn't open hits\n");
+    exit(1);
+  }
   char tmpstr[1000];
   int tmp = fscanf(fp, "%s", tmpstr);
 
@@ -444,7 +447,10 @@ void readDetectors() {
   char file[1000];
   sprintf(file, "%s/detectors.csv", base_path);
   FILE*fp = fopen(file, "r");
-  if (!fp) printf("couldn't open detectors\n");
+  if (!fp) {
+    printf("couldn't open detectors\n");
+    exit(1);
+  }
 
   char tmpstr[1000];
   int tmp = fscanf(fp, "%s", tmpstr);
@@ -476,7 +482,10 @@ void readCells() {
   else
     sprintf(file, "%s/test/event%09d-cells.csv", base_path, filenum);
   FILE*fp = fopen(file, "r");
-  if (!fp) printf("couldn't open cells\n");
+  if (!fp) {
+    printf("couldn't open cells\n");
+    exit(1);
+  }
   char tmpstr[1000];
   int tmp = fscanf(fp, "%s", tmpstr);
   //cout << tmpstr << endl;

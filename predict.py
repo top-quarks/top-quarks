@@ -19,7 +19,11 @@ n = len(run_list)
 
 def run(i):
     log = 'logs/%s.txt'%str(i)
-    call(['bash', '-c', '/usr/bin/time -v ./predict %s > %s 2>&1'%(str(i), log)], stderr=open(log,'ab'))
+    retval = call(['bash', '-c', '/usr/bin/time -v ./predict %s > %s 2>&1'%(str(i), log)], stderr=open(log,'ab'))
+    if retval != 0:
+        os.system("cat "+log)
+        print('If you see "couldn\'t open" somewhere in the above, there was a problem with finding the data. Make sure you set base_path correctly in src/input.hpp')
+        exit(0)
     return 1
 
 with Pool(max_workers=parallel) as executor:
