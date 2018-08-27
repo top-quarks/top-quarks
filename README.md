@@ -21,14 +21,14 @@ scikit-learn==0.19.1
 numpy==1.14.3
 
 #DATA SETUP
-The model assumes it can find the following (un-zipped) competition files
+The model assumes it can find the following (un-zipped) competition files (the contents of blacklist_training.zip is contained in blacklist/)
 
 blacklist/
 detectors.csv
 train_100_events/
 test/
 
-in a folder specified by "base_path" in input.hpp . There is no fatal error if blacklist isn't found, and we don't need train_100_events/ except for re-training the model.
+in a folder specified by "base_path" in input.hpp . There is no fatal error if blacklist isn't found, and we don't need train_100_events/ except for re-training the model. Also, note that "base_path" can't use ~/ to point to home, it needs a full or relative path like "/home/icecuber/kaggle_data" or "../kaggle_data/".
 
 #MODEL RUN
 The model is run with
@@ -45,4 +45,4 @@ The logistic regression model for pairs is re-trained with
 
 python3 train.py
 
-Expect a lot of ugly output. train.py will overwrite the old training in trained/pair_logreg3
+Expect a lot of ugly output, rm fails are expected. train.py will overwrite the old training in trained/pair_logreg3
