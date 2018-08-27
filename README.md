@@ -9,7 +9,7 @@ Lenovo Legion Y720 (4 core i7-7770HQ, 16 GB memory, didn't use the GTX 1060 grap
 
 * For all submissions and test except a few of the last ones I used this hardware. For creating the submission I uploaded I actually used a remote computer, but there was no reason to do so, and I re-ran it on this hardware to make sure there was no difference. So I'll just present numbers from this hardware.
 
-The minimum hardware is currently limited by the 4.07GB peak memory usage of the largest event. The total run-time is assumed to be approximately 16 hours divided by the number of cores.
+The minimum hardware is currently limited by the 4.07GB peak memory usage of the largest event. The total run-time for all 125 events is assumed to be approximately 16 hours divided by the number of cores.
 
 #SOFTWARE
 The final model is standalone C++ requiring only standard STL libraries and C++11 support, python is only used for scripting (re-training, running multiple events in parallel, stitching submission files)
@@ -28,15 +28,21 @@ detectors.csv
 train_100_events/
 test/
 
-in a folder specified by "base_path" in input.hpp
+in a folder specified by "base_path" in input.hpp . There is no fatal error if blacklist isn't found, and we don't need train_100_events/ except for re-training the model.
 
 #MODEL RUN
 The model is run with
 
-python3 run_test.py
+python3 predict.py
 
 This took all little under 4 hours on my hardware, running 4 events in parallel at any time (you may adjust the "parallel" setting in run_test.py. It never came close to the 16 GB memory available. The largest event had a peak usage of 4.07 GB, the average event had peak usage 2.78 GB.
 
-The output (which is overwritten every time) is a file called "submissions/submission.csv" which could be uploaded to Kaggle (if gzip1.6 is available, there will also be a compressed version "submissions/submission.csv.gz" which was the one I uploaded).
+The output (which is overwritten every time) is a file called "submissions/submission.csv" which could be uploaded to Kaggle (if gzip1.6 is available, there will also be a compressed version "submissions/submission.csv.gz" which was the one I uploaded. Otherwise you might get an unimportant error message saying it couldn't compress it).
 
 The first lines of run_test.py are (hopefully) very intuitive, so take a look if you want to f.ex. run on a subset of the events.
+
+The logistic regression model for pairs is re-trained with
+
+python3 train.py
+
+Expect a lot of ugly output. train.py will overwrite the old training in trained/pair_logreg3
